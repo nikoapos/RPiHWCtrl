@@ -20,14 +20,14 @@
  * @author Nikolaos Apostolakos <nikoapos@gmail.com>
  */
 
-#ifndef PIHWCTRLCPP_HWINTERFACES_OBSERVABLE_H
-#define PIHWCTRLCPP_HWINTERFACES_OBSERVABLE_H
+#ifndef RPIHWCTRL_HWINTERFACES_OBSERVABLE_H
+#define RPIHWCTRL_HWINTERFACES_OBSERVABLE_H
 
 #include <vector>
 #include <memory>
 #include <PiHWCtrl/HWInterfaces/Observer.h>
 
-namespace PiHWCtrlCpp {
+namespace RPiHWCtrl {
 
 /**
  * @class Observable
@@ -69,7 +69,7 @@ private:
   
 };
 
-} // end of namespace PiHWCtrlCpp
+} // end of namespace RPiHWCtrl
 
-#endif /* PIHWCTRLCPP_HWINTERFACES_OBSERVABLE_H */
+#endif /* RPIHWCTRL_HWINTERFACES_OBSERVABLE_H */
 

@@ -22,7 +22,8 @@ list (APPEND LINK_LIBS ${Boost_LIBRARIES})
 # Build the C++ library #
 #########################
 
-# Define that we want to use C++14
+# Define that we want to use C++14. Unfortunately the gcc that comes with
+# Raspbian does not support C++17.
 set (CMAKE_CXX_STANDARD 14)
 
 # Use the include directory for the header files

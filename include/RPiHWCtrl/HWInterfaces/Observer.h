@@ -20,10 +20,10 @@
  * @author Nikolaos Apostolakos <nikoapos@gmail.com>
  */
 
-#ifndef PIHWCTRLCPP_HWINTERFACES_OBSERVER_H
-#define PIHWCTRLCPP_HWINTERFACES_OBSERVER_H
+#ifndef RPIHWCTRL_HWINTERFACES_OBSERVER_H
+#define RPIHWCTRL_HWINTERFACES_OBSERVER_H
 
-namespace PiHWCtrlCpp {
+namespace RPiHWCtrl {
 
 /**
  * @class Observer
@@ -61,7 +61,7 @@ public:
   
 };
 
-} // end of namespace PiHWCtrlCpp
+} // end of namespace RPiHWCtrl
 
-#endif /* PIHWCTRLCPP_HWINTERFACES_OBSERVER_H */
+#endif /* RPIHWCTRL_HWINTERFACES_OBSERVER_H */
 

@@ -20,10 +20,10 @@
  * @author Nikolaos Apostolakos <nikoapos@gmail.com>
  */
 
-#ifndef PIHWCTRLCPP_HWINTERFACES_INPUT_H
-#define PIHWCTRLCPP_HWINTERFACES_INPUT_H
+#ifndef RPIHWCTRL_HWINTERFACES_INPUT_H
+#define RPIHWCTRL_HWINTERFACES_INPUT_H
 
-namespace PiHWCtrlCpp {
+namespace RPiHWCtrl {
 
 /**
  * @class Input
@@ -52,7 +52,7 @@ public:
   
 };
 
-} // end of namespace PiHWCtrlCpp
+} // end of namespace RPiHWCtrl
 
-#endif /* PIHWCTRLCPP_HWINTERFACES_INPUT_H */
+#endif /* RPIHWCTRL_HWINTERFACES_INPUT_H */
 
