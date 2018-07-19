@@ -31,7 +31,7 @@ include_directories(include)
 
 # Generate a library from all files under src/lib
 file(GLOB_RECURSE SOURCES "src/lib/*.cpp")
-#add_library(rpihwctrl SHARED ${SOURCES})
+add_library(rpihwctrl SHARED ${SOURCES})
 
 
 ####################################
