@@ -20,13 +20,13 @@
  * @author Nikolaos Apostolakos <nikoapos@gmail.com>
  */
 
-#ifndef RPIHWCTRL_HWINTERFACES_OBSERVABLE_H
-#define RPIHWCTRL_HWINTERFACES_OBSERVABLE_H
+#ifndef RPIHWCTRL_INTERFACES_OBSERVABLE_H
+#define RPIHWCTRL_INTERFACES_OBSERVABLE_H
 
 #include <map>
 #include <memory>
 #include <functional>
-#include <RPiHWCtrl/HWInterfaces/Observer.h>
+#include <RPiHWCtrl/Interfaces/Observer.h>
 
 namespace RPiHWCtrl {
 
@@ -97,5 +97,5 @@ private:
 
 } // end of namespace RPiHWCtrl
 
-#endif /* RPIHWCTRL_HWINTERFACES_OBSERVABLE_H */
+#endif /* RPIHWCTRL_INTERFACES_OBSERVABLE_H */
 

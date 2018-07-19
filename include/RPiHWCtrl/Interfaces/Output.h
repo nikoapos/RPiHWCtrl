@@ -20,8 +20,8 @@
  * @author Nikolaos Apostolakos <nikoapos@gmail.com>
  */
 
-#ifndef RPIHWCTRL_HWINTERFACES_OUTPUT_H
-#define RPIHWCTRL_HWINTERFACES_OUTPUT_H
+#ifndef RPIHWCTRL_INTERFACES_OUTPUT_H
+#define RPIHWCTRL_INTERFACES_OUTPUT_H
 
 namespace RPiHWCtrl {
 
@@ -54,5 +54,5 @@ public:
 
 } // end of namespace RPiHWCtrl
 
-#endif /* RPIHWCTRL_HWINTERFACES_OUTPUT_H */
+#endif /* RPIHWCTRL_INTERFACES_OUTPUT_H */
 

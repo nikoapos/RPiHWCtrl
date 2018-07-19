@@ -1,7 +1,7 @@
-HWInterfaces package
-====================
+Interfaces package
+==================
 
-The HWInterfaces package contains the interfaces used by the library to abstract
+The Interfaces package contains the interfaces used by the library to abstract
 the different implementations and help for the modularization. These interfaces
 are the following:
 
