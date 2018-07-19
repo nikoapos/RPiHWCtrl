@@ -23,6 +23,8 @@
 #ifndef RPIHWCTRL_INTERFACES_INPUT_H
 #define RPIHWCTRL_INTERFACES_INPUT_H
 
+#include <type_traits>
+
 namespace RPiHWCtrl {
 
 /**

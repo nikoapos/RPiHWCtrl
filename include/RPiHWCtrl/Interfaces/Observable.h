@@ -62,7 +62,11 @@ public:
    * @return 
    *    The identifier of the observer
    */
-  int addObserver(std::shared_ptr<Observer<T>> observer);
+  int addObserver(std::shared_ptr<Observer<T>> observer) {
+    ++m_next_id;
+    m_observers[m_next_id] = observer;
+    return m_next_id;
+  }
   
   /**
    * @brief Adds the given functor as an observer
@@ -78,20 +82,39 @@ public:
    * @return 
    *    The identifier to be used for stop receiving events
    */
-  int addObserver(std::function<void(const T&)> observer);
+  int addObserver(std::function<void(const T&)> observer) {
+    return addObserver(std::make_shared<FunctionObserver>(observer));
+  }
   
   /// Removes the given observer from getting notifications
-  void removeObserver(int observer_id);
+  void removeObserver(int observer_id) {
+    m_observers.erase(observer_id);
+  }
   
 protected:
   
   /// Method to be called by the implementations to generate events of type T
-  void notifyObservers(const T& value);
+  void notifyObservers(const T& value) {
+    for (auto& obs : m_observers) {
+      obs.second->event(value);
+    }
+  }
   
 private:
   
   int m_next_id = 0;
   std::map<int, std::shared_ptr<Observer<T>>> m_observers {};
+  
+  // This is a helper adaptor which converts a functor to an Observer 
+  class FunctionObserver : public Observer<T> {
+    std::function<void(const T&)> m_func;
+  public:
+    FunctionObserver(std::function<void(const T&)> m_func) : m_func(m_func) { }
+    virtual ~FunctionObserver() = default;
+    void event(const T& value) override {
+      m_func(value);
+    }
+  };
   
 };
 
