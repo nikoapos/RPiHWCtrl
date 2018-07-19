@@ -23,9 +23,10 @@
 #ifndef RPIHWCTRL_HWINTERFACES_OBSERVABLE_H
 #define RPIHWCTRL_HWINTERFACES_OBSERVABLE_H
 
-#include <vector>
+#include <map>
 #include <memory>
-#include <PiHWCtrl/HWInterfaces/Observer.h>
+#include <functional>
+#include <RPiHWCtrl/HWInterfaces/Observer.h>
 
 namespace RPiHWCtrl {
 
@@ -49,23 +50,48 @@ public:
   
   virtual ~Observable() = default;
   
-  /// Adds an observer, which will be notified for future events
-  void addObserver(std::shared_ptr<Observer<T>> observer) {
-    m_observers.push_back(observer);
-  }
+  /**
+   * @brief Adds an observer, which will be notified for future events
+   * 
+   * @details
+   * The returned value is the identifier of the observer. It can be used for
+   * stop receiving notifications, by using the method removeObserver().
+   * 
+   * @param observer
+   *    The observer to add
+   * @return 
+   *    The identifier of the observer
+   */
+  int addObserver(std::shared_ptr<Observer<T>> observer);
+  
+  /**
+   * @brief Adds the given functor as an observer
+   * 
+   * @details
+   * The given functor can be anything that behaves as a function which gets
+   * an argument of type T. It will be called for future events. The returned
+   * value is the identifier which can be used to stop receiving calls, by using
+   * the method removeObserver().
+   * 
+   * @param observer
+   *    A function like object to receive events
+   * @return 
+   *    The identifier to be used for stop receiving events
+   */
+  int addObserver(std::function<void(const T&)> observer);
+  
+  /// Removes the given observer from getting notifications
+  void removeObserver(int observer_id);
   
 protected:
   
   /// Method to be called by the implementations to generate events of type T
-  void notifyObservers(const T& value) {
-    for (auto& obs : m_observers) {
-      obs->event(value);
-    }
-  }
+  void notifyObservers(const T& value);
   
 private:
   
-  std::vector<std::shared_ptr<Observer<T>>> m_observers;
+  int m_next_id = 0;
+  std::map<int, std::shared_ptr<Observer<T>>> m_observers {};
   
 };
 
