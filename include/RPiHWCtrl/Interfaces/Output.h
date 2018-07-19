@@ -48,7 +48,7 @@ public:
   virtual ~Output() = default;
   
   /// Must be implemented by the subclasses to consume the given value
-  virtual T writeValue() = 0;
+  virtual void writeValue(const T& value) = 0;
   
 };
 

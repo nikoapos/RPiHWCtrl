@@ -50,8 +50,8 @@ GpioInput::GpioInput(int gpio_no) : m_gpio_no(gpio_no) {
   }
   
   // Construct the GPIO dir path and check that it is not already exported
-  auto gpio_dir = gpio_path + "/gpio" + std::to_string(m_gpio_no);
-  if (boost::filesystem::exists(gpio_dir)) {
+  m_gpio_dir = gpio_path + "/gpio" + std::to_string(m_gpio_no);
+  if (boost::filesystem::exists(m_gpio_dir)) {
     throw GpioAlreadyReserved(gpio_no);
   }
   
@@ -65,25 +65,25 @@ GpioInput::GpioInput(int gpio_no) : m_gpio_no(gpio_no) {
   std::this_thread::sleep_for(50ms);
   
   // Check that the GPIO is exported correctly
-  if (!boost::filesystem::exists(gpio_dir)) {
+  if (!boost::filesystem::exists(m_gpio_dir)) {
     throw GpioException() << "Failed to export GPIO " << m_gpio_no;
   }
   
   // Set the GPIO as input by writing to the direction file
   {
-    std::ofstream direction_file {gpio_dir + "/direction"};
+    std::ofstream direction_file {m_gpio_dir + "/direction"};
     direction_file << "in";
   }
   
   // Set that both rising and falling edges will generate interrupts, which will
   // make the poll() method to return
   {
-    std::ofstream direction_file {gpio_dir + "/edge"};
+    std::ofstream direction_file {m_gpio_dir + "/edge"};
     direction_file << "both";
   }
   
   // Create the value file string
-  m_value_file =gpio_dir + "/value";
+  m_value_file =m_gpio_dir + "/value";
   
 }
 

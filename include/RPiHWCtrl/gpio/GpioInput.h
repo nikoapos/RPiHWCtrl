@@ -20,8 +20,8 @@
  * @author Nikolaos Apostolakos <nikoapos@gmail.com>
  */
 
-#ifndef RPIHWCTRL_INTERFACES_GPIOINPUT_H
-#define RPIHWCTRL_INTERFACES_GPIOINPUT_H
+#ifndef RPIHWCTRL_GPIO_GPIOINPUT_H
+#define RPIHWCTRL_GPIO_GPIOINPUT_H
 
 #include <string>
 #include <atomic>
@@ -88,10 +88,14 @@ public:
   /// Stop listening for interrupts
   void stop();
   
+protected:
+  
+  std::string m_gpio_dir;
+  std::string m_value_file;
+  
 private:
   
   int m_gpio_no;
-  std::string m_value_file;
   std::atomic<bool> m_observing_flag {false};
   std::thread m_observing_thread {};
   
@@ -99,5 +103,5 @@ private:
 
 } // end of namespace RPiHWCtrl
 
-#endif // RPIHWCTRL_INTERFACES_GPIOINPUT_H
+#endif // RPIHWCTRL_GPIO_GPIOINPUT_H
 
