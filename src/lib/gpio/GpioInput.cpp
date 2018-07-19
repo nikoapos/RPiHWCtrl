@@ -89,6 +89,12 @@ GpioInput::GpioInput(int gpio_no) : m_gpio_no(gpio_no) {
 
 GpioInput::~GpioInput() {
   
+  // Check if the object was moved. In this case
+  // we do nothing. The destructor of the other instance will clean everything.
+  if (m_observing_flag == nullptr) {
+    return;
+  }
+  
   // Stop the observing thread if it is running
   stop();
   
@@ -187,23 +193,23 @@ private:
 }
 
 void GpioInput::start() {
-  m_observing_flag = true;
+  *m_observing_flag = true;
   
   auto notify_func = [this](const bool& value) {
     notifyObservers(value);
   };
   
-  ValueChangeEventGenerator task {m_value_file, m_observing_flag, notify_func};
-  std::thread t {task};
-  t.detach();
+  ValueChangeEventGenerator task {m_value_file, *m_observing_flag, notify_func};
+  m_observing_thread = std::make_unique<std::thread>(task);
+  m_observing_thread->detach();
 }
 
 void GpioInput::stop() {
   // Stop the observing thread by setting the flag to false. We wait for the
-  // thread to finish.
-  m_observing_flag = false;
-  if (m_observing_thread.joinable()) {
-    m_observing_thread.join();
+  // thread to finish. If the thread is not running we do nothing.
+  *m_observing_flag = false;
+  if (m_observing_thread != nullptr && m_observing_thread->joinable()) {
+    m_observing_thread->join();
   }
 }
 

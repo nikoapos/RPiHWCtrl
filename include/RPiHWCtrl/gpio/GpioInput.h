@@ -26,6 +26,7 @@
 #include <string>
 #include <atomic>
 #include <thread>
+#include <memory>
 #include <RPiHWCtrl/Interfaces/Input.h>
 #include <RPiHWCtrl/Interfaces/Observable.h>
 
@@ -71,6 +72,11 @@ public:
    *    If there was any problem with the communication with the driver
    */
   GpioInput(int m_gpio_no);
+  
+  GpioInput(const GpioInput&) = delete;
+  GpioInput& operator=(const GpioInput&) = delete;
+  GpioInput(GpioInput&&) = default;
+  GpioInput& operator=(GpioInput&&) = default;
 
   /// Releases the physical GPIO
   virtual ~GpioInput();
@@ -96,8 +102,8 @@ protected:
 private:
   
   int m_gpio_no;
-  std::atomic<bool> m_observing_flag {false};
-  std::thread m_observing_thread {};
+  std::unique_ptr<std::atomic<bool>> m_observing_flag = std::make_unique<std::atomic<bool>>(false);
+  std::unique_ptr<std::thread> m_observing_thread {};
   
 };
 

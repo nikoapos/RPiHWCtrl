@@ -58,6 +58,11 @@ public:
    *    If there was any problem with the communication with the driver
    */
   GpioOutput(int m_gpio_no);
+  
+  GpioOutput(const GpioOutput&) = delete;
+  GpioOutput& operator=(const GpioOutput&) = delete;
+  GpioOutput(GpioOutput&&) = default;
+  GpioOutput& operator=(GpioOutput&&) = default;
 
   /// Releases the physical GPIO
   virtual ~GpioOutput() = default;
