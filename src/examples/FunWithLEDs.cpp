@@ -59,6 +59,7 @@
 #include <vector> // for std::vector
 #include <chrono> // for std::chrono_literals
 #include <thread> // for std::this_thread
+#include <atomic>
 #include <RPiHWCtrl/gpio/GpioInput.h>
 #include <RPiHWCtrl/gpio/GpioOutput.h>
 
@@ -68,8 +69,35 @@ using namespace std::chrono_literals;
 
 int main() {
   
+  //
+  // Handling the switch
+  //
+  // The following code will listen for change events of the switch state via
+  // the Observable functionality. This is done to demonstrate how to observe
+  // for events. Te program could simply call the readValue() method every time
+  // it wants to get the state of the switch.
+  //
+  
   // Create the object we will use to check if the switch is on or off
   RPiHWCtrl::GpioInput on_off {21};
+  
+  // We keep an atomic boolean which will be used for getting the state of the
+  // switch. We use atomic because there will be two treads accessing it, this
+  // one and the one listening for interrupts of the GPIO. We initialize it
+  // with the current state of the switch.
+  std::atomic<bool> switch_state {on_off.readValue()};
+  
+  // We add a listener to the GpioInput which will update the atomic boolean
+  // every time the switch changes state. We use a lambda expression which
+  // captures the switch_state by reference.
+  on_off.addObserver([&switch_state](const bool& value) {switch_state = value;} );
+  
+  // Start the switch, so it notifies its observers for changes
+  on_off.start();
+  
+  //
+  // Handling the LEDs
+  //
   
   // Create a vector with the controllers for the GPIOs 16, 5, 25, 22 and 4
   std::vector<RPiHWCtrl::GpioOutput> leds {};
@@ -103,7 +131,7 @@ int main() {
     }
     
     // If the switch is on, light the LED at position i, otherwise let it off
-    if (on_off.readValue()) {
+    if (switch_state) {
       leds[i].writeValue(true);
     }
     
