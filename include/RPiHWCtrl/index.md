@@ -7,3 +7,5 @@ by the directory structure):
 * **[Interfaces](Interfaces/index.md):** Package containing the interfaces
 used by the library to abstract the different implementations and help for the
 modularization
+
+* **[gpio](gpio/index.md):** Package responsible for controlling the GPIO pins 
