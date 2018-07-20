@@ -9,9 +9,9 @@ write binary output to a GPIO pin.
 To see how to use the GpioInput and GpioOutput classes you can see the following
 examples:
 
-- [GpioInputExample](src/examples/GpioInputExample.cpp): Demonstrates how to
-    use the GpioInput class
-- [GpioOutputExample](src/examples/GpioInputExample.cpp): Demonstrates how to
-    use the GpioOutput class
-- [FunWithLEDs](src/examples/FunWithLEDs.cpp): An example of using multiple GPIO
-    pins, both for input and output
+- [GpioInputExample](../../../src/examples/GpioInputExample.cpp): Demonstrates
+    how to use the GpioInput class
+- [GpioOutputExample](../../../src/examples/GpioInputExample.cpp): Demonstrates
+    how to use the GpioOutput class
+- [FunWithLEDs](../../../src/examples/FunWithLEDs.cpp): An example of using
+    multiple GPIO pins, both for input and output
