@@ -26,7 +26,7 @@
  * 
  * Simple example of how to use the GpioOutput class. This class can be used to
  * control the output of the GPIO pins accessible via the 40 pin interface 
- * (GPIOs 2-28) as ON (3.3 Volt) or OFF (GND).
+ * (GPIOs 2-27) as ON (3.3 Volt) or OFF (GND).
  * 
  * Hardware implementation
  * -----------------------

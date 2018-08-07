@@ -45,7 +45,7 @@ const std::string gpio_path {"/sys/class/gpio"};
 GpioInput::GpioInput(int gpio_no) : m_gpio_no(gpio_no) {
   
   // Check that we have a GPIO number in the valid range
-  if (m_gpio_no < 2 || m_gpio_no > 28) {
+  if (m_gpio_no < 2 || m_gpio_no > 27) {
     throw BadGpioNumber(m_gpio_no);
   }
   

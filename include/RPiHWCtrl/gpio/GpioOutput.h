@@ -34,7 +34,7 @@ namespace RPiHWCtrl {
  * @brief Class for using the GPIO as output
  * 
  * @details
- * This class can be used to control the GPIOs 2-28 of the 40 pin interface of
+ * This class can be used to control the GPIOs 2-27 of the 40 pin interface of
  * the Raspberry Pi as ON (3.3 Volt) / OFF (GND) switches. The class can
  * also be used as a GpioInput instance, to allow its current state to
  * be retrieved from the code side. For more details see the documentation of
@@ -53,7 +53,7 @@ public:
    * @throws GpioAlreadyResearved
    *    If the requested GPIO is already reserved
    * @throws BadGpioNumber
-   *    If the given number is out of the range 2-28
+   *    If the given number is out of the range 2-27
    * @throws GpioException
    *    If there was any problem with the communication with the driver
    */

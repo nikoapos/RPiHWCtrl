@@ -38,7 +38,7 @@ namespace RPiHWCtrl {
  * @brief Class for using the GPIO as input
  * 
  * @details
- * This class can be used to access the GPIOs 2-28 of the Rasberry Pi, via the
+ * This class can be used to access the GPIOs 2-27 of the Rasberry Pi, via the
  * 40 pin interface. The input is interpreted as following:
  * 
  * - ON: 3.3 Volt connected to the pin
@@ -67,7 +67,7 @@ public:
    * @throws GpioAlreadyResearved
    *    If the requested GPIO is already reserved
    * @throws BadGpioNumber
-   *    If the given number is out of the range 2-28
+   *    If the given number is out of the range 2-27
    * @throws GpioException
    *    If there was any problem with the communication with the driver
    */

@@ -26,7 +26,7 @@
  * 
  * Simple example of how to use the GpioInput class. This class can be used to 
  * read binary input from one of the GPIO pins accessible via the 40 pin interface
- * (GPIOs 2-28). It interprets the input as following:
+ * (GPIOs 2-27). It interprets the input as following:
  * 
  * - ON: 3.3 Volt connected to the pin
  * - OFF: GND connected to the pin or the pin is open circuited
