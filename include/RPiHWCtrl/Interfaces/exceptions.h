@@ -26,6 +26,7 @@
 #include <exception>
 #include <sstream>
 #include <type_traits>
+#include <cstring>
 
 namespace RPiHWCtrl {
 
@@ -57,7 +58,6 @@ auto operator<<(Ex&& ex, const T& message) -> decltype(std::forward<Ex>(ex)) {
 }
 
 class GpioException : public Exception {
-  
 };
 
 class BadGpioNumber : public GpioException {
@@ -79,7 +79,69 @@ public:
   int gpio;
 };
 
-} // end of namespace RPiHWCtrls
+class I2CException : public Exception {
+};
+
+class I2CBusOpenFailure : public I2CException {
+public:
+  I2CBusOpenFailure(std::string bus_name) : bus_name(bus_name), err_code(errno) {
+    appendMessage("Failed to open I2C bus " + bus_name + ": ");
+    appendMessage(std::strerror(err_code));
+  }
+  std::string bus_name;
+  int err_code;
+};
+
+class I2CDeviceConnectionFailure : public I2CException {
+public:
+  I2CDeviceConnectionFailure(int address) : address(address), err_code(errno) {
+    appendMessage("Failed to connect to I2C address ");
+    std::stringstream address_str;
+    address_str << std::hex << address;
+    appendMessage(address_str.str() + ": ");
+    appendMessage(std::strerror(err_code));
+  }
+  int address;
+  int err_code;
+};
+
+class I2CActionOutOfTransaction : public I2CException {
+};
+
+class I2CReadRegisterException : public I2CException {
+public:
+  I2CReadRegisterException(std::int8_t register_address) 
+          : register_address(register_address), err_code(errno) {
+    appendMessage("Failed to read register ");
+    std::stringstream address_str;
+    address_str << std::hex << (int)register_address;
+    appendMessage(address_str.str() + ": ");
+    appendMessage(std::strerror(err_code));
+  }
+  std::int8_t register_address;
+  int err_code;
+};
+
+template <typename T>
+class I2CWriteRegisterException : public I2CException {
+public:
+  I2CWriteRegisterException(std::int8_t register_address, T value)
+          : register_address(register_address), err_code(errno), value(value) {
+    std::stringstream message;
+    message << "Failed to write " << value << " in register "
+            << (int)register_address << ": ";
+    appendMessage(message.str());
+    appendMessage(std::strerror(err_code));
+  }
+  std::int8_t register_address;
+  int err_code;
+  T value;
+};
+
+class I2CWrongModule : public I2CException {
+};
+
+} // end of namespace RPiHWCtrl
 
 #endif // RPIHWCTRL_INTERFACES_EXCEPTIONS_H
 
